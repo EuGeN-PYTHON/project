@@ -1,0 +1,46 @@
+Index: HW_1_1.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'''\r\n1. Реализовать вывод информации о промежутке времени в зависимости от его продолжительности duration в секундах:\r\nдо минуты: <s> сек;\r\n* до часа: <m> мин <s> сек;\r\n* до суток: <h> час <m> мин <s> сек;\r\n* *до месяца, до года, больше года: по аналогии.\r\n'''\r\nSEC_IN_MIN = 60\r\nSEC_IN_HOUR = SEC_IN_MIN * 60\r\nSEC_IN_DAY = SEC_IN_HOUR * 24\r\nSEC_IN_MONTH = int(SEC_IN_DAY * ((365*4+1)/(4*12)))\r\nSEC_IN_YEAR = int(SEC_IN_DAY * ((365*4+1)/4))\r\n\r\n\r\nduration_sec = int(input(\"Enter the number of seconds: \"))\r\nduration = [int(duration_sec // SEC_IN_YEAR), int((duration_sec % SEC_IN_YEAR)) // SEC_IN_MONTH, (duration_sec % SEC_IN_MONTH) // SEC_IN_DAY, (duration_sec % SEC_IN_DAY) // SEC_IN_HOUR, (duration_sec % SEC_IN_HOUR) // SEC_IN_MIN, duration_sec % 60]\r\n\r\n\r\nwhile duration[0] > 0 or duration[1] > 0 or duration[2] > 0 or duration[3] > 0 or duration[4] > 0 or duration[5] >= 0:\r\n    duration = [int(duration_sec // SEC_IN_YEAR), int((duration_sec % SEC_IN_YEAR)) // SEC_IN_MONTH, (duration_sec % SEC_IN_MONTH) // SEC_IN_DAY, (duration_sec % SEC_IN_DAY) // SEC_IN_HOUR, (duration_sec % SEC_IN_HOUR) // SEC_IN_MIN, duration_sec % 60]\r\n\r\n    if duration[0] != 0:\r\n        print(\r\n            f\"Your number of seconds in year(s), month, day(s), hour(s), minute(s) and second(s):{duration[0]} year(s); {duration[1]} month; {duration[2]} day(s);\"\r\n            f\" {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)\")\r\n        break\r\n    elif duration[1] != 0:\r\n        print(\r\n            f\"Your number of seconds in month, day(s), hour(s), minute(s) and second(s): {duration[1]} month; {duration[2]} day(s);\"\r\n            f\" {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)\")\r\n        break\r\n    elif duration[2] != 0:\r\n        print(\r\n            f\"Your number of seconds in day(s), hour(s), minute(s) and second(s): {duration[2]} day(s); {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)\")\r\n        break\r\n    elif duration[3] != 0:\r\n        print(\r\n            f\"Your number of seconds in hour(s), minute(s) and second(s): {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)\")\r\n        break\r\n    elif duration[4] != 0:\r\n        print(\r\n            f\"Your number of seconds in minute(s) and second(s): {duration[4]} minute(s); {duration[5]} second(s)\")\r\n        break\r\n\r\n    duration_sec = int(input(\"Please, enter a number larger to calculate the year,month, days, hours, minutes: \"))\r\n\r\n'''\r\n2.\tСоздать список, состоящий из кубов нечётных чисел от 1 до 1000:\r\na.\tВычислить сумму тех чисел из этого списка, сумма цифр которых делится нацело на 7. Например, число «19 ^ 3 = 6859» будем включать в сумму, так как 6 + 8 + 5 + 9 = 28 – делится нацело на 7. Внимание: использовать только арифметические операции!\r\nb.\tК каждому элементу списка добавить 17 и заново вычислить сумму тех чисел из этого списка, сумма цифр которых делится нацело на 7. \r\nc.\t* Решить задачу под пунктом b, не создавая новый список.\r\n\r\n'''\r\n\r\narray_odd_of_numbers = []\r\nsum_val = 0\r\n\r\nfor i in range(1, 1000, 2):\r\n    i = i**3\r\n    array_odd_of_numbers.append(i)\r\n\r\nfor val in array_odd_of_numbers:\r\n    sum_num = 0\r\n    while val > 0:\r\n        sum_num += val % 10\r\n        val = val // 10\r\n        if sum_num % 7 == 0:\r\n            sum_val += val\r\nprint(sum_val)\r\n\r\n\r\nsum_val = 0\r\n\r\nfor i in array_odd_of_numbers:\r\n    sum_num_17 = 0\r\n    i += 17\r\n    while i > 0:\r\n        sum_num_17 += i % 10\r\n        i = i // 10\r\n        if sum_num_17 % 7 == 0:\r\n            sum_val += i\r\n\r\n\r\nprint(sum_val)\r\n\r\n\r\n# Еще одно решение:\r\narray_odd_of_numbers = []\r\nsum_val = 0\r\nfor i in range(1, 1000, 2):\r\n    i = i**3 + 17\r\n    sum_num = 0\r\n    while i > 0:\r\n        sum_num += i % 10\r\n        i = i // 10\r\n        if sum_num % 7 == 0:\r\n            sum_val += i\r\nprint(sum_val)\r\n\r\n'''\r\n3.\tРеализовать склонение слова «процент» для чисел до 20. \r\nНапример, задаем число 5 — получаем «5 процентов», \r\nзадаем число 2 — получаем «2 процента». Вывести все склонения для проверки.\r\n'''\r\n\r\npercent = ['процент', 'процентов', 'процента']\r\n\r\ni = int(input(\"Please, enter any number from 0 to ∞: \"))\r\n\r\nif i % 10 == 1:\r\n    print(i, percent[0], end=' ')\r\nelif (i % 10) > 1 and (i % 10) < 5:\r\n    print(i, percent[2], end=' ')\r\nelse:\r\n    print(i, percent[1], end=' ')\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/HW_1_1.py b/HW_1_1.py
+--- a/HW_1_1.py	(revision 20f463f581dbc253fcb6307923d738a70e5fde00)
++++ b/HW_1_1.py	(date 1613801470772)
+@@ -23,24 +23,19 @@
+         print(
+             f"Your number of seconds in year(s), month, day(s), hour(s), minute(s) and second(s):{duration[0]} year(s); {duration[1]} month; {duration[2]} day(s);"
+             f" {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)")
+-        break
+     elif duration[1] != 0:
+         print(
+             f"Your number of seconds in month, day(s), hour(s), minute(s) and second(s): {duration[1]} month; {duration[2]} day(s);"
+             f" {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)")
+-        break
+     elif duration[2] != 0:
+         print(
+             f"Your number of seconds in day(s), hour(s), minute(s) and second(s): {duration[2]} day(s); {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)")
+-        break
+     elif duration[3] != 0:
+         print(
+             f"Your number of seconds in hour(s), minute(s) and second(s): {duration[3]} hour(s); {duration[4]} minute(s); {duration[5]} second(s)")
+-        break
+     elif duration[4] != 0:
+         print(
+             f"Your number of seconds in minute(s) and second(s): {duration[4]} minute(s); {duration[5]} second(s)")
+-        break
+ 
+     duration_sec = int(input("Please, enter a number larger to calculate the year,month, days, hours, minutes: "))
+ 
+@@ -107,7 +102,9 @@
+ 
+ i = int(input("Please, enter any number from 0 to ∞: "))
+ 
+-if i % 10 == 1:
++if (i % 100) > 10 and (i % 100) < 20:
++    print(i, percent[1], end=' ')
++elif i % 10 == 1:
+     print(i, percent[0], end=' ')
+ elif (i % 10) > 1 and (i % 10) < 5:
+     print(i, percent[2], end=' ')
